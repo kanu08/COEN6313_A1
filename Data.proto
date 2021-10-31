@@ -1,0 +1,29 @@
+syntax = "proto3";
+
+package CServer;
+
+message Request {
+         int32 RFWID = 1;
+         string BenchMarkType = 2;
+         string Metric = 3;
+         int32 numOfSamples = 4;
+         int32 BatchesStart = 5;
+         int32 BatchNum = 6;
+}
+
+message Data {
+         int32 RFWID = 2;
+         int32 LastBatchN = 3;
+         repeated float data = 1;
+}
+
+message ReqLog {
+repeated Data dat = 1;
+}
+message Message{
+  string message = 1;
+}
+
+service BidirectionalRPC{
+  rpc GetServerResponse(stream Request) returns (stream Data) {}
+}
